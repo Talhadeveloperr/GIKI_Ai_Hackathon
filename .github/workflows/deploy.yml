@@ -20,14 +20,9 @@ jobs:
           script: |
             echo "🚀 Starting deployment..."
 
-            # go to repo
-            cd /home/talhaserver/GIKI_Ai_Hackathon/GIKI_Ai_Hackathon
+            cd /home/talhaserver/GIKI_Ai_Hackathon/GIKI_Ai_Hackathon/GIKI_Ai_Hackathon
 
-            # pull latest code
             git pull origin main
-
-            # go to frontend folder
-            cd GIKI_Ai_Hackathon
 
             echo "📦 Installing dependencies..."
             npm install
@@ -37,10 +32,7 @@ jobs:
 
             echo "🔄 Restarting app..."
 
-            # delete old process if exists
             pm2 delete vite-app || true
-
-            # start production server
             pm2 start serve --name "vite-app" -- -s dist -l 3000
 
             pm2 save
