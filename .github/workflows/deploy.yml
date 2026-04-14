@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            echo "🚀 Starting deployment..."
+            echo "🚀 Starting deployment...."
 
             cd /home/talhaserver/GIKI_Ai_Hackathon/GIKI_Ai_Hackathon/GIKI_Ai_Hackathon
 
