@@ -21,7 +21,7 @@ jobs:
             echo "🚀 Starting deployment..."
 
             # go to repo
-            cd /home/talhaserver/GIKI_Ai_Hackathon
+            cd /home/talhaserver/GIKI_Ai_Hackathon/GIKI_Ai_Hackathon
 
             # pull latest code
             git pull origin main
