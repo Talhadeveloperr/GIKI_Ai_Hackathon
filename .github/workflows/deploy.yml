@@ -1,0 +1,48 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            echo "🚀 Starting deployment..."
+
+            # go to repo
+            cd /home/talhaserver/GIKI_Ai_Hackathon
+
+            # pull latest code
+            git pull origin main
+
+            # go to frontend folder
+            cd GIKI_Ai_Hackathon
+
+            echo "📦 Installing dependencies..."
+            npm install
+
+            echo "🏗️ Building project..."
+            npm run build
+
+            echo "🔄 Restarting app..."
+
+            # delete old process if exists
+            pm2 delete vite-app || true
+
+            # start production server
+            pm2 start serve --name "vite-app" -- -s dist -l 3000
+
+            pm2 save
+
+            echo "✅ Deployment finished!"
